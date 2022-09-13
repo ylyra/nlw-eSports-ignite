@@ -4,19 +4,27 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-pages:* vite'",
+    "build": "cross-env DEBUG=vite-plugin-pages vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
+    "autoprefixer": "^10.4.9",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.19",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0"
+    "vite": "^3.1.0",
+    "vite-plugin-pages": "^0.26.0"
   }
 }

@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.game-gradient {
+  border-top: 4px solid;
+  border-image: linear-gradient(90deg, #9572fc 0%, #43e7ad 50.52%, #e2d45c 100%)
+    1;
+}
+
+:focus {
+  @apply focus:outline-none focus:ring-offset-2 focus:ring focus:ring-violet-400;
+}
