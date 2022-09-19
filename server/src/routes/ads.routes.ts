@@ -16,6 +16,7 @@ AdsRoutes.get("/", async (_, res) => {
   res.json(
     ads.map((ad) => ({
       ...ad,
+      weekDays: ad.weekDays.split(","),
       hourStart: convertMinutesToHourString(ad.hourStart),
       hourEnd: convertMinutesToHourString(ad.hourEnd),
     }))

@@ -5,16 +5,11 @@ import {
   Inter_900Black,
   useFonts,
 } from "@expo-google-fonts/inter";
-import * as SplashScreenDep from "expo-splash-screen";
-import { useCallback, useEffect, useState } from "react";
-import { StatusBar, Text, View } from "react-native";
+import { StatusBar } from "react-native";
 
 import { Background } from "./src/components/Background";
 import { SplashScreen } from "./src/components/SplashScreen";
-import { Home } from "./src/screens/Home";
-
-// Keep the splash screen visible while we fetch resources
-SplashScreenDep.preventAutoHideAsync();
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -30,12 +25,13 @@ export default function App() {
 
   return (
     <Background>
-      <Home />
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
+
+      <Routes />
     </Background>
   );
 }

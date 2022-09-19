@@ -7,30 +7,33 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 import type { Object } from "ts-toolbelt";
+import { Game } from "../../@types/game";
 
 import { THEME } from "../../theme";
 import { styles } from "./styles";
 
-export interface GameCardProps {
-  id: string;
-  name: string;
-  ads: string;
-  cover: ImageSourcePropType;
-}
+export interface GameCardProps extends Game {}
 
 export function GameCard({
-  ads,
-  cover,
   id,
-  name,
+  _count,
+  bannerUrl,
+  title,
   ...props
 }: Object.Merge<GameCardProps, TouchableOpacityProps>) {
   return (
     <TouchableOpacity style={styles.container} {...props}>
-      <ImageBackground source={cover} style={styles.cover}>
+      <ImageBackground
+        source={{
+          uri: bannerUrl,
+        }}
+        style={styles.cover}
+      >
         <LinearGradient colors={THEME.COLORS.FOOTER} style={styles.footer}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.ads}>{ads} anúncio(s)</Text>
+          <Text style={styles.name}>{title}</Text>
+          {_count.ads > 0 && (
+            <Text style={styles.ads}>{_count.ads} anúncio(s)</Text>
+          )}
         </LinearGradient>
       </ImageBackground>
     </TouchableOpacity>

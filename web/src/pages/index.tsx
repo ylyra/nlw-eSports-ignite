@@ -1,12 +1,26 @@
-import { MagnifyingGlassPlus } from "phosphor-react";
-
 import { Head } from "../components/Head";
 
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Game } from "../@types/game";
 import logoImg from "../assets/logo.svg";
+import { CreateAdModal } from "../components/CreateAdModal";
+import { GameBanner } from "../components/GameBanner";
+import { api } from "../services/api";
 
 const MainPage = () => {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    api
+      .get<Game[]>("/games")
+      .then((res) => setGames(res.data))
+      .catch(console.log);
+    toast.success("Anúncio criado com sucesso!");
+  }, []);
+
   return (
-    <div className="max-w-[1344px] mx-auto flex flex-col items-center py-20">
+    <div className="max-w-[1344px] mx-auto flex flex-col items-center py-20 px-2">
       <Head>
         <title>Home - NLW ESports Ignite</title>
       </Head>
@@ -21,20 +35,8 @@ const MainPage = () => {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        {[...new Array(6)].map((_, key) => (
-          <a href="" key={key} className="rounded-lg overflow-hidden relative">
-            <img
-              src="https://static-cdn.jtvnw.net/ttv-boxart/Fortnite.jpg"
-              alt="Fortnite"
-            />
-
-            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient flex flex-col gap-1 absolute bottom-0 left-0 right-0">
-              <strong className="text-white text-base font-bold">
-                Fortnite
-              </strong>
-              <span className="text-sm text-zinc-300">4 anúncios</span>
-            </div>
-          </a>
+        {games.map((game) => (
+          <GameBanner key={game.id} {...game} />
         ))}
       </div>
 
@@ -48,10 +50,7 @@ const MainPage = () => {
           </span>
         </div>
 
-        <button className="bg-violet-500 py-3 px-4 rounded-md text-white flex gap-3 items-center hover:bg-violet-600 focus:outline-none focus:ring focus:ring-violet-400 text-[0px]">
-          <MagnifyingGlassPlus size={24} />
-          <span className="text-base font-medium">Publicar anúncio</span>
-        </button>
+        <CreateAdModal games={games} />
       </div>
     </div>
   );
