@@ -5,11 +5,11 @@ export type Ad = {
   yearsPlaying: number;
   discord: string;
   weekDays: string[];
-  hoursStart: string;
-  hoursEnd: string;
+  hourStart: string;
+  hourEnd: string;
   useVoiceChannel: Boolean;
   createdAt: string;
-  game: {
+  game?: {
     id: string;
     title: string;
     bannerUrl: string;

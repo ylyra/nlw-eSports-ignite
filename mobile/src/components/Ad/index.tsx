@@ -1,21 +1,15 @@
 import { GameController } from "phosphor-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
 
+import { Ad as AdServerProps } from "../../@types/ad";
 import { THEME } from "../../theme";
 import { styles } from "./styles";
 
-type AdProps = {
-  id: string;
-  name: string;
-  weekDays: string[];
-  useVoiceChannel: boolean;
-  yearsPlaying: number;
-  hourStart: string;
-  hourEnd: string;
+type AdProps = AdServerProps & {
+  onConnect: (discord: string) => void;
 };
 
 export function Ad(props: AdProps) {
-  async function onConnectClick() {}
   return (
     <View style={styles.container}>
       <View>
@@ -56,7 +50,10 @@ export function Ad(props: AdProps) {
         </Text>
       </View>
 
-      <TouchableOpacity style={styles.connect} onPress={onConnectClick}>
+      <TouchableOpacity
+        style={styles.connect}
+        onPress={() => props.onConnect(props.discord)}
+      >
         <GameController color={THEME.COLORS.TEXT} size={20} />
         <Text style={styles.connectText}>Conectar</Text>
       </TouchableOpacity>

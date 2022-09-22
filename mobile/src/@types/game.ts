@@ -11,10 +11,13 @@ export type GameWithAds = Game & {
   ads: {
     id: string;
     name: string;
-    weekDays: string[];
-    useVoiceChannel: boolean;
+    gameId: string;
     yearsPlaying: number;
+    discord: string;
+    weekDays: string[];
     hourStart: string;
     hourEnd: string;
+    useVoiceChannel: Boolean;
+    createdAt: string;
   }[];
 };

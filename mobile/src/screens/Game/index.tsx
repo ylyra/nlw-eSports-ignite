@@ -9,6 +9,7 @@ import { GameWithAds } from "../../@types/game";
 import logoImg from "../../assets/logo-nlw-esports.png";
 import { Ad } from "../../components/Ad";
 import { Background } from "../../components/Background";
+import { DuoMatch } from "../../components/DuoMatch";
 import { Heading } from "../../components/Heading";
 import { api } from "../../services/api";
 import { THEME } from "../../theme";
@@ -22,9 +23,14 @@ interface RouteParams {
 
 export function Game() {
   const [ads, setAds] = useState<GameWithAds["ads"]>([]);
+  const [discordDueSelected, setDiscordDueSelected] = useState("");
   const route = useRoute();
   const game = route.params as RouteParams;
   const navigation = useNavigation();
+
+  function handleConnectDuo(discord: string) {
+    setDiscordDueSelected(discord);
+  }
 
   function handleGoBack() {
     navigation.goBack();
@@ -68,7 +74,9 @@ export function Game() {
         <FlatList
           data={ads}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Ad {...item} key={item.id} />}
+          renderItem={({ item }) => (
+            <Ad {...item} key={item.id} onConnect={handleConnectDuo} />
+          )}
           horizontal
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
@@ -83,6 +91,13 @@ export function Game() {
               Não há anúncios publicados ainda
             </Text>
           )}
+        />
+
+        <DuoMatch
+          discord="chevron"
+          visible={discordDueSelected.length > 0}
+          onRequestClose={() => setDiscordDueSelected("")}
+          onClose={() => setDiscordDueSelected("")}
         />
       </SafeAreaView>
     </Background>
