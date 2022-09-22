@@ -33,10 +33,12 @@ AdsRoutes.post("/", async (req, res) => {
       weekDays,
       yearsPlaying,
       gameId,
+      name,
     } = req.body;
 
     const ad = await prisma.ad.create({
       data: {
+        name,
         discord,
         hourEnd: convertHourStringToMinutes(hourEnd),
         hourStart: convertHourStringToMinutes(hourStart),
@@ -47,7 +49,7 @@ AdsRoutes.post("/", async (req, res) => {
       },
     });
 
-    res.json(ad);
+    res.status(201).json(ad);
   } catch {
     res.status(400).json({
       error: "Bad request",

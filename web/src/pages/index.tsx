@@ -16,7 +16,6 @@ const MainPage = () => {
       .get<Game[]>("/games")
       .then((res) => setGames(res.data))
       .catch(console.log);
-    toast.success("Anúncio criado com sucesso!");
   }, []);
 
   return (

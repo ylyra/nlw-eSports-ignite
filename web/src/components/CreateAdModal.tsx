@@ -60,7 +60,10 @@ export function CreateAdModal({ games }: CreateAdModalProps) {
     data
   ) => {
     try {
-      await api.post("/ads", data);
+      await api.post("/ads", {
+        ...data,
+        weekDays: data.weekDays.map(Number),
+      });
       toast.success("Anúncio criado com sucesso!");
       setIsDialogOpen(false);
     } catch {}
@@ -117,7 +120,6 @@ export function CreateAdModal({ games }: CreateAdModalProps) {
               />
               <Input
                 label="Qual seu Discord?"
-                pattern="^.{3,32}#[0-9]{4}$"
                 id="discord"
                 placeholder="Usuario#0000"
                 error={formState.errors.discord}
